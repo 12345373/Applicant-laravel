@@ -41,7 +41,9 @@ Route::middleware('auth')->group(function () {
             Route::get("/show/{id}", [ApplicantController::class, 'show'])->name('show');
             Route::get("/download/{id}", [ApplicantController::class, 'download'])->name('download');
         });
-    
+
+// Route for the Admin Dashboard
+
 
     });
 

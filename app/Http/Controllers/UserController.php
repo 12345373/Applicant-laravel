@@ -76,7 +76,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'type' => 'required|in:admin,HR', // غيّر القيم حسب أنواع المستخدمين عندك
+            'type' => 'required|in:admin,HR,applicant', // غيّر القيم حسب أنواع المستخدمين عندك
         ]);
 
         // التحديث

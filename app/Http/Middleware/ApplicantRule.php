@@ -16,9 +16,9 @@ class ApplicantRule
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->type != 'applicant') {
+        if (Auth::user()->type != 'applicant' && Auth::user()->type != 'HR') {
             return redirect()->route("dashboard")
-            ->with('error', 'Only applicants are allowed to access this page.');
+                ->with('error', 'Only applicants and HR users are allowed to access this page.');
         }
         return $next($request);
     }

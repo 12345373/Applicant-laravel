@@ -18,14 +18,13 @@ class AuthController extends Controller
             "name" => "required|string",
             "email" => "required|email|unique:users,email",
             "password" => "required|confirmed",
-            "type" => "required|in:admin,applicant,HR"
+
         ]);
 
         $user = User::create([
             "name" => $data['name'],
             "email" => $data['email'],
             "password" => bcrypt($data['password']),
-            'type' => $request->type, // تأكد إن ده موجود
         ]);
 
         $token = $user->createToken("user_token")->plainTextToken;

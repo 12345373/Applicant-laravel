@@ -2,104 +2,287 @@
 <html lang="en">
 
 <head>
-    @include('admin.shared.head')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Modern Design</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #f1f5f9;
+            --text-color: #334155;
+            --light-text: #94a3b8;
+        }
+
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            height: 100vh;
         }
 
-        .card {
+        .login-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .login-banner {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 0;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .banner-content {
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,.1)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-floating .form-control {
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            padding: 1rem 1rem;
+            height: calc(3.5rem + 2px);
+        }
+
+        .form-floating .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-floating label {
+            padding: 1rem;
+            color: var(--light-text);
+        }
+
+        .btn-login {
+            background-color: var(--primary-color);
             border: none;
-            border-radius: 1rem;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+            border-radius: 10px;
+            padding: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
 
-        .form-control {
-            border-radius: 0.5rem;
+        .btn-login:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
         }
 
-        .btn-primary {
-            border-radius: 0.5rem;
-            padding: 0.6rem;
+        .logo {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .separator {
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text);
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .separator::before {
+            margin-right: 1rem;
+        }
+
+        .separator::after {
+            margin-left: 1rem;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--light-text);
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
             font-weight: 600;
         }
 
-        .logo img {
-            height: 40px;
+        .register-link a:hover {
+            text-decoration: underline;
         }
 
-        .credits {
-            font-size: 13px;
-            color: #6c757d;
-            margin-top: 1rem;
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--light-text);
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <main>
-        <div class="container">
-            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-                            <div class="d-flex justify-content-center py-4">
-                                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block ms-2">NiceAdmin</span>
-                                </a>
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+        <div class="login-container row m-0">
+            <div class="col-md-6 p-0 d-none d-md-block">
+                <div class="login-banner">
+                    <div class="banner-pattern"></div>
+                    <div class="banner-content">
+                        <h2 class="fw-bold mb-4">Welcome Back!</h2>
+                        <p class="mb-4">Log in to your account to access all features and continue your journey with us.</p>
+                        <div class="d-flex align-items-center mt-5">
+                            {{-- <div class="bg-white rounded-circle p-2 me-3">
+                                <img src="/api/placeholder/40/40" alt="User" class="rounded-circle">
+                            </div> --}}
+                            <div>
+                                <p class="mb-0 fw-bold">Team SW2</p>
+                                <p class="mb-0 small">Digital Solutions</p>
                             </div>
-
-                            <div class="card w-100 mb-3">
-                                <div class="card-body">
-
-                                    <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                                        <p class="text-center small">Enter your email & password to login</p>
-                                    </div>
-
-                                    <form method="POST" action="{{ route('login') }}">
-                                        @csrf
-
-                                        <div class="mb-3">
-                                            <label for="yourUsername" class="form-label">Email</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text">@</span>
-                                                <input type="email" name="email" class="form-control" id="yourUsername" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
-                                        </div>
-
-                                        <div class="d-grid mb-3">
-                                            <button class="btn btn-primary" type="submit">Login</button>
-                                        </div>
-
-                                        <div class="text-center">
-                                            <p class="small mb-1">Don't have an account? <a href="{{ route('register') }}">Create an account</a></p>
-                                            <p class="small mb-0"><a href="{{ route('password.request') }}">Forgot your password?</a></p>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="credits text-center">
-                                Designed by <a href="#">BootstrapMade</a>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-    </main>
+            </div>
+            <div class="col-md-6 form-container">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="logo-text">Alaa anwar</div>
+                </div>
 
-    @include('admin.shared.script')
+                <h3 class="mb-4 fw-bold text-center">Sign In</h3>
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <div class="form-floating">
+                        <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="Email" required>
+                        <label for="floatingEmail"><i class="fa-regular fa-envelope me-2"></i>Email address</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <label for="floatingPassword"><i class="fa-solid fa-lock me-2"></i>Password</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Remember me
+                            </label>
+                        </div>
+                        <a href="#" class="text-decoration-none" style="color: var(--primary-color);">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login btn-primary w-100 py-3">
+                        Sign In <i class="fa-solid fa-arrow-right ms-2"></i>
+                    </button>
+                </form>
+
+                <div class="separator">Or continue with</div>
+
+                <div class="social-login">
+                    <a href="#" class="social-btn">
+                        <i class="fa-brands fa-google fs-5"></i>
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fa-brands fa-facebook-f fs-5"></i>
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fa-brands fa-apple fs-5"></i>
+                    </a>
+                </div>
+
+                <div class="register-link">
+                    Don't have an account? <a href="{{ route('register') }}">Sign up now</a>
+                </div>
+
+                <div class="footer">
+                    &copy; 2025 Alaa anwar- All Rights Reserved
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
